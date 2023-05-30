@@ -1,11 +1,12 @@
 #include <math.h>
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <GLFW/glfw3.h>
 
-#define WIDTH 800
-#define HEIGHT 600
-#define RAND_NUM 32767
+#define WIDTH 1600
+#define HEIGHT 900
+#define RAND_NUM 65535
 #define SCROLL_MUL 5
 
 extern float monteCarlo(int rand_count, float rands[][2], float square[3],
@@ -128,6 +129,7 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	srand(time(0));
 	rands = malloc(sizeof(float) * 2 * RAND_NUM);
 	if(!rands)
 	{
@@ -149,7 +151,7 @@ int main()
 
 	while(!glfwWindowShouldClose(window))
 	{
-		glfwPollEvents();
+		glfwWaitEvents();
 
 		float count = monteCarlo(RAND_NUM, (float (*)[2]) rands,
 			square, circle, WIDTH, HEIGHT, pixels);
